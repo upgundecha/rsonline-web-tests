@@ -5,7 +5,6 @@ import cucumber.api.Scenario;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -13,6 +12,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.io.File;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This is Hooks class managing WebDriver lifecycle
@@ -25,14 +25,11 @@ public class Hooks {
 
     @Before
     public void setUp() {
-        if (SystemUtils.IS_OS_WINDOWS) {
-            System.setProperty("webdriver.chrome.driver",
-                    "./src/test/resources/drivers/chromedriver.exe");
-        } else {
-            System.setProperty("webdriver.chrome.driver",
-                    "./src/test/resources/drivers/chromedriver");
-        }
+        System.setProperty("webdriver.chrome.driver",
+                "./src/test/resources/drivers/chromedriver");
         driver = new ChromeDriver();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.NANOSECONDS);
+        driver.manage().window().maximize();
     }
 
     @After
@@ -52,6 +49,7 @@ public class Hooks {
 
     /**
      * Get driver instance
+     *
      * @return WebDriver
      */
     public static WebDriver getDriver() {
