@@ -1,5 +1,9 @@
 package com.rsonline.model;
 
+/**
+ * This is POJO for holding filter and filter value
+ * @author upgundecha
+ */
 public class Filter {
 
     String filter;

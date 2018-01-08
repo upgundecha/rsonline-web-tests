@@ -9,6 +9,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is Home page class
+ * @author upgundecha
+ */
 public class HomePage extends BasePage {
 
     private WebDriver driver;

@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This is Brand page class
+ * @author upgundecha
+ */
 public class BrandPage extends BasePage {
 
     private WebDriver driver;
@@ -30,6 +34,10 @@ public class BrandPage extends BasePage {
         return brandTitle.getText().trim();
     }
 
+    /**
+     * Get popular products displayed on the Brand page
+     * @return
+     */
     public Map<String, WebElement> getPopularProducts() {
         Map<String, WebElement> popularProductsMap = new HashMap<>();
 
@@ -42,6 +50,11 @@ public class BrandPage extends BasePage {
         return popularProductsMap;
     }
 
+    /**
+     * Select a product from popular products list
+     * @param name name of the product
+     * @return Product page
+     */
     public ProductPage selectPopularProduct(String name) {
         if (getPopularProducts().containsKey(name)) {
             WebElement element = getPopularProducts().get(name);

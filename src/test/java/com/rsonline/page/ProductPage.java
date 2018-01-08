@@ -7,6 +7,10 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * This is Product page class
+ * @author upgundecha
+ */
 public class ProductPage extends BasePage {
 
     private WebDriver driver;
@@ -56,6 +60,8 @@ public class ProductPage extends BasePage {
 
     public void addProductToBasket() {
         addToBasketButton.click();
+
+        // wait for product to be added in the shopping cart
         new WebDriverWait(driver, 30)
                 .until(ExpectedConditions
                         .not(ExpectedConditions

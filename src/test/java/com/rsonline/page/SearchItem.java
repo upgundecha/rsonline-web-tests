@@ -7,6 +7,10 @@ import org.openqa.selenium.internal.WrapsDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+/**
+ * This is Search item class representing product listed in search results
+ * @author upgundecha
+ */
 public class SearchItem {
 
     private WebDriver driver;
@@ -49,12 +53,12 @@ public class SearchItem {
         addButton.click();
         WebElement basketTitle = driver.findElement(By.cssSelector("div.js-basket a"));
         new WebDriverWait(driver, 30)
-                .until(ExpectedConditions.not(ExpectedConditions.attributeToBe(basketTitle, "title", "Your basket is empty")));
+                .until(ExpectedConditions
+                        .not(ExpectedConditions
+                                .attributeToBe(basketTitle, "title", "Your basket is empty")));
     }
 
     public String getPrice() {
         return  priceElem.getText().trim();
     }
-
-
 }

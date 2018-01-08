@@ -2,14 +2,10 @@ package com.rsonline.test;
 
 import com.rsonline.model.Filter;
 import com.rsonline.page.*;
-import cucumber.api.DataTable;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.WebDriver;
-
-import javax.naming.directory.SearchResult;
 
 import static org.assertj.core.api.Assertions.*;
 

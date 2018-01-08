@@ -10,8 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
+/**
+ * This is Search result page class representing search results
+ * @author upgundecha
+ */
 public class SearchResultsPage extends BasePage {
 
     private WebDriver driver;
@@ -25,6 +28,11 @@ public class SearchResultsPage extends BasePage {
         PageFactory.initElements(driver, this);
     }
 
+    /**
+     * Get searched items displayed on the page
+     * TODO: Enhance this method to work with pagination
+     * @return returns list of items displayed on page
+     */
     public List<SearchItem> getItems() {
         List<SearchItem> items = new ArrayList<>();
 
@@ -41,48 +49,50 @@ public class SearchResultsPage extends BasePage {
         return items;
     }
 
+    /**
+     * Get count of products matching the search criteria
+     * @return cout of products found
+     */
     public String getSearchMatchCount() {
         return driver.findElement(By
                 .cssSelector("div.matches span.number"))
                 .getText().trim();
     }
 
+    /**
+     * Get top level filters
+     * @return list of top level filters
+     */
     public List<String> getFilters() {
-        return driver
-                .findElements(By
-                        .cssSelector("div.filter-container a"))
-                .stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+        return getElementTextValues(By
+                .cssSelector("div.filter-container a"));
     }
 
+    /**
+     * Get top level filters which are disabled
+     * @return list of top level filters
+     */
     public List<String> getUnavailableFilters() {
-        return driver
-                .findElements(By
-                        .cssSelector("div.filter-container a.filter-unavailable"))
-                .stream()
-                .map(WebElement::getText)
-                .collect(Collectors.toList());
+        return getElementTextValues(By
+                .cssSelector("div.filter-container a.filter-unavailable"));
     }
 
+    /**
+     * Apply a filter
+     * @param filter top level filter
+     * @param values filter values to select. Provide multiple values separated by comma (,)
+     * @return Search results page
+     */
     public SearchResultsPage applyFilter(String filter, String values) {
         String[] valueArr = values.split(",");
 
-        driver.findElements(By
-                .cssSelector("div.filter-container a"))
-                .stream()
-                .filter(ele -> ele.getText().equals(filter))
-                .findFirst()
-                .ifPresent(ele -> ele.click());
+        // select first level filter
+        findAndClickElementUsingText(By.cssSelector("div.filter-container a"), filter);
 
+        // select values for the filter
         for(String value : valueArr) {
-            driver.findElements(By
-                    .cssSelector("div.popover div.checkbox label span[ng-class]"))
-                    .stream()
-                    .filter(ele -> ele.getText().trim()
-                            .equals(value.trim()))
-                    .findFirst()
-                    .ifPresent(ele -> ele.click());
+            findAndClickElementUsingText(By
+                    .cssSelector("div.popover div.checkbox label span[ng-class]"), value);
         }
         driver.findElement(By.cssSelector("div.popover rs-apply-button button")).click();
 
